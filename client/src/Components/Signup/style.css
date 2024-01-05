@@ -1,0 +1,12 @@
+.valid{
+    /* display: none; */
+
+    color: green;
+}
+.non-Valid{
+    color: red;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+}
