@@ -1,7 +1,7 @@
-.valid{
+.Valid{
     /* display: none; */
 
-    color: green;
+    color: rgb(24, 214, 24) 
 }
 .non-Valid{
     color: red;
