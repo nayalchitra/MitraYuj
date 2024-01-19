@@ -19,8 +19,8 @@ function Login() {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(name && redirectTo){
-            navigate(redirectTo)
+        if(name){
+            navigate('/')
         }
     },[name])
 
