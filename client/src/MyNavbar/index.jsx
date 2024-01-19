@@ -6,11 +6,16 @@ import { Link, useSearchParams } from 'react-router-dom';
 import Form from "react-bootstrap/Form";
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutActionCreator } from '../reducers/userReducer';
 
 function MyNavbar() {
 
   // const [name, setName] = useState();
   const [search, setSearch] = useSearchParams();
+  const {username} = useSelector(({users})=>users);
+  const dispatch = useDispatch();
+
   const handleChange = (e)=>{
     
       setSearch({search:e.target.value})
@@ -24,6 +29,7 @@ function MyNavbar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/routing">Routing</Nav.Link>
+            <Nav.Link as={Link} to="/counter">Counter</Nav.Link>
           </Nav>
           <Nav>
            
@@ -42,10 +48,17 @@ function MyNavbar() {
             <Link to="/signup">
              SignUp
             </Link> */}
-             <Nav.Link as={Link} to='/login'>Login</Nav.Link>
-            <Nav.Link as={Link} to='/signup'>
-             SignUp
-            </Nav.Link>
+            {
+              username ? 
+              <Nav.Link as={Button} onClick={()=>dispatch(logoutActionCreator())}>Logout</Nav.Link>
+              :
+              <>
+                <Nav.Link as={Link} to='/login'>Login</Nav.Link>
+                <Nav.Link as={Link} to='/signup'>SignUp</Nav.Link>
+              </>
+            }
+           
+             
           </Nav>
         </Navbar.Collapse>
       </Container>

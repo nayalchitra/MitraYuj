@@ -1,6 +1,7 @@
 
 
 const express = require('express');
+
 const router = express.Router();
 
 const userData = [
@@ -477,23 +478,38 @@ router.get("/users/:id",(req,res)=>{
     console.log({url});
     console.log({params});
     console.log({query});
-    const user = userData.filter((data)=>data.id === parseInt(params.id));
+    const user = userData.filter((data)=>data.id == params.id);
     console.log(user);
     if(user.length)
-        res.send({user});
+        res.send({user});                                                                                       
     else{
-        res.send({status:false, message:"user does not exists"});
+        res.status(404).send("user does not exists")
     }
 })
 
-router.post("/signup",(req,res)=>{
+router.post("/signup",(req,res,next)=>{
+   try{
     const {body, url, params,query, header} = req;
     console.log({body});
     console.log({url});
     console.log({params});
     console.log({query});
+    console.log(abc);
     res.send(`user account created! ${body?.id}`);
+   
+}
+    catch(error){
+        next(error);
+    }
 
 })
 
+router.all("*",(req,res,next)=>{
+    try{
+        throw new Error("Invalid endpoint")
+    }
+    catch(err){
+        next(err);
+    }
+})
 module.exports = router;
